@@ -1,0 +1,29 @@
+{
+  "name": "fe-config-loader",
+  "version": "1.0.0",
+  "description": "load configuration dynamically at runtime for front end (vue or react) application",
+  "main": "index.js",
+  "keywords": [
+    "config-loader",
+    "vue",
+    "react",
+    "JavaScript",
+    "node",
+    "docker",
+    "kubernetes",
+    "k8s",
+    "container",
+    "config",
+    "config-map",
+    "runtime"
+  ],
+  "author": "edwardpan2010@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "json5": "^2.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deoxxa/node-config-loader"
+  }
+}
