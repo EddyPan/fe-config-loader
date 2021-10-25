@@ -1,5 +1,7 @@
 # fe-config-loader
 
+English | [简体中文](./Readme.zh.md)
+
 Front-end application only can load one environment configration at build time. It's really very inconvenient especially for container deployment. This package provides a kind of method to loading configutaion at runtime. You can mount the conif.json file and load it dynamically. Implement the requirements of deploying the same image to different environments.
 
 Now we can support VUE and REACT application.

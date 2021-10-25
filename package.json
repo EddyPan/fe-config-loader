@@ -24,6 +24,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/deoxxa/node-config-loader"
+    "url": "https://github.com/EddyPan/fe-config-loader.git"
   }
 }
