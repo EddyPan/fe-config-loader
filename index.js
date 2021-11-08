@@ -7,7 +7,6 @@ const load = _ => {
   const xmlhttp = new XMLHttpRequest()
   xmlhttp.open('GET', `${process.env.BASE_URL}config.json?_t=${new Date().getTime()}`, false)
   xmlhttp.send()
-  console.log(process.env)
   if (process.env.NODE_ENV === 'production') {
     // on the production mode, read root config
     config = json5.parse(xmlhttp.responseText)
