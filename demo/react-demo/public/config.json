@@ -1,0 +1,9 @@
+{
+    "dev": {
+        // npm start：get the next config
+        "message": "fe-config-loader: helloword"
+    },
+
+    // npm run build：get the next config
+    "message": "fe-config-loader: helloword-production"
+}
