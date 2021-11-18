@@ -5,7 +5,7 @@ let config = {}
 // Load configuration files synchronously
 const load = _ => {
   const xmlhttp = new XMLHttpRequest()
-  xmlhttp.open('GET', `${process.env.BASE_URL||process.env.PUBLIC_URL}config.json?_t=${new Date().getTime()}`, false)
+  xmlhttp.open('GET', `${process.env.BASE_URL||"./"}config.json?_t=${new Date().getTime()}`, false)
   xmlhttp.send()
   if (process.env.NODE_ENV === 'production') {
     // on the production mode, read root config

@@ -8,15 +8,15 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          {test()}
+          {getMessage()}
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="https://www.npmjs.com/package/fe-config-loader"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          fe-config-loader
         </a>
       </header>
     </div>
@@ -24,8 +24,7 @@ function App() {
 }
 
 
-function test() {
-  let cl = configLoader;
-  return cl.get("message");
+function getMessage() {
+  return configLoader.get("message");
 }
 export default App;

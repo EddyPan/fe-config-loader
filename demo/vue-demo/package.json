@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "fe-config-loader": "^1.0.3",
+    "fe-config-loader": "../../",
     "vue": "^2.6.11"
   },
   "devDependencies": {

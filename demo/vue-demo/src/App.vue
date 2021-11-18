@@ -21,7 +21,6 @@ export default {
   },
   mounted() {
     this.msg = configLoader.get("message")
-    console.log("aaaaaaaaaaaaa" + this.msg)
   }
 }
 </script>
