@@ -1,27 +1,32 @@
 import json5 from 'json5'
-import crypto from 'crypto'
+import crypto from "crypto";
 
-const SALT = process.env.VUE_APP_CONFIG_SALT || process.env.REACT_APP_CONFIG_SALT || 'tnP8DvkSp6MXtZHuP3ClhRTstakloIg'
-const ITER = process.env.VUE_APP_CONFIG_ITER || process.env.REACT_APP_CONFIG_ITER || 16
-const IV = process.env.VUE_APP_CONFIG_IV || process.env.REACT_APP_CONFIG_IV || 'PYYNphyM1GS1TXiJFKAtATSevEykrbL6eYh4J4FWEZUYSmdqP7e0Mn5xtXbrBgv8Ip'
+const SALT = process.env.VUE_APP_CONFIG_SALT || process.env.REACT_APP_CONFIG_SALT || "tnP8DvkSp6MXtZHuP3ClhRTstakloIg";
+const ITER = process.env.VUE_APP_CONFIG_ITER || process.env.REACT_APP_CONFIG_ITER || 16;
+const IV = process.env.VUE_APP_CONFIG_IV || process.env.REACT_APP_CONFIG_IV || "PYYNphyM1GS1TXiJFKAtATSevEykrbL6eYh4J4FWEZUYSmdqP7e0Mn5xtXbrBgv8Ip";
 
 let config = {}
 
 const decrypt = (decryptedData, password) => {
-  const key = crypto.pbkdf2Sync(password, SALT, ITER, 16, 'sha256')
-  let data = Buffer.from(decryptedData, 'base64')
-  const authTag = data.slice(data.length - 16)
-  data = data.slice(0, data.length - 16)
-  const decipher = crypto.createDecipheriv('aes-128-gcm', key, Buffer.from(IV, 'utf-8'))
-  decipher.setAuthTag(authTag)
+  const key = crypto.pbkdf2Sync(password, SALT, ITER, 16, "sha256");
 
-  return decipher.update(data) + decipher.final()
+  // 首先是分离加密数据和校验数据，校验数据长度固定16字节
+  let data = Buffer.from(decryptedData, "base64");
+  const authTag = data.slice(data.length - 16);
+  data = data.slice(0, data.length - 16);
+
+  // key 和 IV 跟加密的一样
+  const decipher = crypto.createDecipheriv("aes-128-gcm", key, Buffer.from(IV, "utf-8"));
+  decipher.setAuthTag(authTag);
+
+  // 返回解密后的数据
+  return decipher.update(data) + decipher.final();
 }
 
 // Load configuration files synchronously
 const load = _ => {
   const xmlhttp = new XMLHttpRequest()
-  xmlhttp.open('GET', `${process.env.BASE_URL || './'}config.json?_t=${new Date().getTime()}`, false)
+  xmlhttp.open('GET', `${process.env.BASE_URL || "./"}config.json?_t=${new Date().getTime()}`, false)
   xmlhttp.send()
   if (process.env.NODE_ENV === 'production') {
     // on the production mode, read root config

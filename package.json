@@ -1,6 +1,6 @@
 {
   "name": "fe-config-loader",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "load configuration dynamically at runtime for front end (vue or react) application",
   "main": "index.js",
   "keywords": [
@@ -20,6 +20,7 @@
   "author": "edwardpan2010@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "crypto": "^1.0.1",
     "json5": "^2.2.0"
   },
   "repository": {
