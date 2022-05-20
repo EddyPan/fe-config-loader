@@ -25,10 +25,10 @@ const load = _ => {
   xmlhttp.send()
   if (process.env.NODE_ENV === 'production') {
     // on the production mode, read root config
-    const { feConfigEncrypted, decryptedData, password, saltkey } = json5.parse(xmlhttp.responseText)
+    const { feConfigEncrypted, decryptedData, password, rdmnum } = json5.parse(xmlhttp.responseText)
     // decrypt config when feConfigEncrypted is true
     if (feConfigEncrypted) {
-      const cfg = decrypt(decryptedData, saltkey || password)
+      const cfg = decrypt(decryptedData, rdmnum || password)
       config = json5.parse(cfg)
     } else {
       config = json5.parse(xmlhttp.responseText)
