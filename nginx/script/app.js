@@ -2,8 +2,12 @@ const fs = require('fs');
 const config = fs.readFileSync(`/usr/share/nginx/html/config.json`);
 
 // 加载加密配置
-let cryptoCfg = {}
-if (fs.existsSync('/opt/config/crypto.json')) cryptoCfg = require('/opt/config/crypto.json')
+let cryptoCfg = {};
+try {
+  cryptoCfg = JSON.parse( fs.readFileSync('/opt/config/crypto.json'));
+}catch(e) {
+  cryptoCfg = {}
+}
 
 // 密钥加盐、迭代次数、偏移量
 const SALT = cryptoCfg.salt || 'tnP8DvkSp6MXtZHuP3ClhRTstakloIg';
