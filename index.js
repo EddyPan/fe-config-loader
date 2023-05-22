@@ -10,26 +10,27 @@ let config = {}
 const decrypt = (decryptedData, password) => {
   const key = crypto.pbkdf2Sync(password, SALT, ITER, 16, 'sha256')
   let data = Buffer.from(decryptedData, 'base64')
+
   const authTag = data.slice(data.length - 16)
   data = data.slice(0, data.length - 16)
+
   const decipher = crypto.createDecipheriv('aes-128-gcm', key, Buffer.from(IV, 'utf-8'))
   decipher.setAuthTag(authTag)
 
   return decipher.update(data) + decipher.final()
 }
 
-// Load configuration files synchronously
+// 异步加载配置
 const load = _ => {
   const xmlhttp = new XMLHttpRequest()
   xmlhttp.open('GET', `${process.env.BASE_URL || './'}config.json?_t=${new Date().getTime()}`, false)
   xmlhttp.send()
   if (process.env.NODE_ENV === 'production') {
-    // on the production mode, read root config
-    const { feConfigEncrypted, decryptedData, password, rdmnum } = json5.parse(xmlhttp.responseText)
-    // decrypt config when feConfigEncrypted is true
-    if (feConfigEncrypted) {
-      const cfg = decrypt(decryptedData, rdmnum || password)
-      config = json5.parse(cfg)
+    // 生产环境下，解密配置
+    const { feConfigEncrypted, cfg, decryptedData, ts, rdmnum, password } = json5.parse(xmlhttp.responseText)
+    // 解密配置，兼容旧版
+    if ((ts && cfg) || feConfigEncrypted) {
+      config = json5.parse(decrypt(cfg || decryptedData, ts || rdmnum || password))
     } else {
       config = json5.parse(xmlhttp.responseText)
     }
