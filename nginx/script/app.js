@@ -42,7 +42,7 @@ async function encrypt(req) {
 
   const decrpted = await crypto.subtle.encrypt(aesParams, key, config);
   const result = {
-    ts,
+    ts: `${ts}`,
     cfg: Buffer.from(decrpted).toString('base64')
   }
   req.headersOut['Content-Type'] = 'application/json';
