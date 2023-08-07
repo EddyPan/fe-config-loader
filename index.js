@@ -1,5 +1,5 @@
 import json5 from 'json5'
-import crypto from 'crypto'
+import crypto from 'crypto-browserify'
 
 const SALT = process.env.VUE_APP_CONFIG_SALT || process.env.REACT_APP_CONFIG_SALT || 'tnP8DvkSp6MXtZHuP3ClhRTstakloIg'
 const ITER = process.env.VUE_APP_CONFIG_ITER || process.env.REACT_APP_CONFIG_ITER || 16
